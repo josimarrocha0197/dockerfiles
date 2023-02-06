@@ -8,6 +8,15 @@ ENV APACHE_RUN_USER="www-data"
 ENV APACHE_RUN_GROUP="www-data"
 ENV APACHE_LOG_DIR="/var/log/apache2"
 
+#COPY index.html /var/www/html
+ADD index.html /var/www/html
+#O ADD cumpre a mesma funcao do COPY, porem, ele pode copiar arquivos TAR e copia-os para o container ja descompactados
+#Ou ate mesmo arquivos externos, hospedados em determinada URL
+
+#USER www-data
+
+WORKDIR /var/www/html
+
 LABEL description="Webserver"
 LABEL version="1.0.0"
 
