@@ -1,6 +1,6 @@
 FROM debian
 
-RUN apt-get update && apt-get install -y apache2 && apt-get clean
+RUN apt-get update && apt-get install -y apache2 curl && apt-get clean
 
 ENV APACHE_LOCK_DIR="/var/lock"
 ENV APACHE_PID_FILE="/var/run/apache2.pid"
@@ -12,6 +12,9 @@ ENV APACHE_LOG_DIR="/var/log/apache2"
 ADD index.html /var/www/html
 #O ADD cumpre a mesma funcao do COPY, porem, ele pode copiar arquivos TAR e copia-os para o container ja descompactados
 #Ou ate mesmo arquivos externos, hospedados em determinada URL
+
+HEALTHCHECK --interval=1m --timeout=3s \
+CMD curl -f http://localhost/ || exit 1
 
 #USER www-data
 
